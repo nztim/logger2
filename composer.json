@@ -1,0 +1,21 @@
+{
+    "name": "nztim/logger2",
+    "description": "Logging package for Laravel",
+    "license": "MIT",
+    "require": {
+        "php": "^7.1.3",
+        "monolog/monolog": "^1.23",
+        "swiftmailer/swiftmailer": "~6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "NZTim\\Logger\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Tim",
+            "email": "tim@nztim.com"
+        }
+    ]
+}
