@@ -18,6 +18,6 @@ class LaravelCache implements Cache
 
     public function put(string $key, $value, int $minutes): void
     {
-        $this->cache->put($key, $value, $minutes);
+        $this->cache->put($key, $value, now()->addMinutes($minutes));
     }
 }

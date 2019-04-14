@@ -8,8 +8,6 @@ use Swift_SmtpTransport;
 
 class LoggerServiceProvider extends ServiceProvider
 {
-    protected $defer = false;
-
     public function boot()
     {
         $this->publishes([
