@@ -10,7 +10,10 @@
     "autoload": {
         "psr-4": {
             "NZTim\\Logger\\": "src/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "authors": [
         {

@@ -10,9 +10,7 @@ class LoggerServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->publishes([
-            __DIR__.'/logger_config.php' => config_path('logger.php'),
-        ]);
+        $this->publishes([__DIR__.'/logger_config.php' => config_path('logger.php')]);
         if (config('logger.laravel', false)) {
             Event::listen(MessageLogged::class, LaravelLogListener::class);
         }

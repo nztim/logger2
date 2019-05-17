@@ -24,9 +24,15 @@ Publish the configuration file with: `php artisan vendor:publish --provider=NZTi
 Inject or use the facade to write to custom log files. Files are stored in `storage/logs/custom`:
 
 ```
+// Facade
 Logger::info('auth', 'User login from 1.2.3.4');
 Logger::warning('audit', 'A record was updated');
 Logger::error('exceptions', 'Fatal exception', ['context' => 'array']);
+
+// Helper functions
+log_info('auth', 'User login from 1.2.3.4');
+log_warning('audit', 'A record was updated');
+log_error('exceptions', 'Fatal exception', ['context' => 'array']);
 ```
 
 Fatal errors occurring during the logging process, are stored in `storage/logs/fatal-logger-errors.log`.
