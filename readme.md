@@ -45,4 +45,4 @@ The Laravel mail system must be configured for emails to function.
 
 ### Changelog
 
-* v1.0: Complete rewrite using monolog handlers, only basic functionality retained - do not upgrade without reviewing and updating all use of this package.
+* v1.0: Complete rewrite using monolog handlers, only basic functionality retained. RequestInfo method removed. Do not upgrade without reviewing and updating all use of this package.
