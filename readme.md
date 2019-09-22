@@ -6,7 +6,6 @@ It logs to local files and optionally provides email alerts.
 ### Installation
 
 * Register the service provider: `NZTim\Logger\LoggerServiceProvider::class,`
-* Add facade reference: `'Logger' => NZTim\Logger\LoggerFacade::class,`
 
 ### Configuration
 
@@ -21,14 +20,9 @@ Publish the configuration file with: `php artisan vendor:publish --provider=NZTi
 
 ### Usage
 
-Inject or use the facade to write to custom log files. Files are stored in `storage/logs/custom`:
+Inject or use helper functions to log to custom log files. Files are stored in `storage/logs/custom`:
 
 ```
-// Facade
-Logger::info('auth', 'User login from 1.2.3.4');
-Logger::warning('audit', 'A record was updated');
-Logger::error('exceptions', 'Fatal exception', ['context' => 'array']);
-
 // Helper functions
 log_info('auth', 'User login from 1.2.3.4');
 log_warning('audit', 'A record was updated');
@@ -45,4 +39,5 @@ The Laravel mail system must be configured for emails to function.
 
 ### Changelog
 
+* v2.0: Remove facade. Requires monolog 2.0+ (Laravel 6.0)
 * v1.0: Complete rewrite using monolog handlers, only basic functionality retained. RequestInfo method removed. Do not upgrade without reviewing and updating all use of this package.

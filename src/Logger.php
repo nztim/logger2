@@ -1,6 +1,7 @@
 <?php namespace NZTim\Logger;
 
 use Monolog\Formatter\HtmlFormatter;
+use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Handler\SwiftMailerHandler;
 use Monolog\Logger as MonologLogger;
@@ -11,9 +12,9 @@ use Throwable;
 
 class Logger
 {
-    protected $config;
-    protected $swiftMailer;
-    protected $cache;
+    private $config;
+    private $swiftMailer;
+    private $cache;
 
     public function __construct(array $config, Swift_Mailer $swiftMailer, Cache $cache)
     {
@@ -95,10 +96,16 @@ class Logger
     protected function addLogFileHandler(MonologLogger $logger, string $channel)
     {
         if (in_array($channel, $this->config['daily'])) {
-            $logger->pushHandler(new RotatingFileHandler($this->filename($channel), $this->config['max_daily']));
-            return;
+            $handler = new RotatingFileHandler($this->filename($channel), $this->config['max_daily']);
+        } else {
+            $handler = new StreamHandler($this->filename($channel));
         }
-        $logger->pushHandler(new StreamHandler($this->filename($channel)));
+        // https://github.com/Seldaek/monolog/blob/master/doc/01-usage.md#customizing-the-log-format
+        $output = "[%datetime%] %channel%.%level_name%: %message% %context% %extra%\n";
+        $dateformat = "Y-m-d H:i:s";
+        $formatter = new LineFormatter($output, $dateformat);
+        $handler->setFormatter($formatter);
+        $logger->pushHandler($handler);
     }
 
     protected function filename($channel)
