@@ -1,7 +1,6 @@
 <?php namespace NZTim\Logger;
 
 use Illuminate\Log\Events\MessageLogged;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use Swift_Mailer;
 use Swift_SmtpTransport;
@@ -12,7 +11,7 @@ class LoggerServiceProvider extends ServiceProvider
     {
         $this->publishes([__DIR__.'/logger_config.php' => config_path('logger.php')]);
         if (config('logger.laravel', false)) {
-            Event::listen(MessageLogged::class, LaravelLogListener::class);
+            $this->app->get(\Illuminate\Events\Dispatcher::class)->listen(MessageLogged::class, LaravelLogListener::class);
         }
     }
 
