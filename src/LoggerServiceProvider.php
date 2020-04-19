@@ -17,13 +17,15 @@ class LoggerServiceProvider extends ServiceProvider
 
     public function register()
     {
+
         $this->app->bind(Logger::class, function () {
+            $config = $this->getMailConfig();
             $transport = (new Swift_SmtpTransport)
-                ->setHost(config('mail.host'))
-                ->setPort(config('mail.port'))
-                ->setEncryption(config('mail.encryption'))
-                ->setUsername(config('mail.username'))
-                ->setPassword(config('mail.password'));
+                ->setHost($config['host'] ?? '')
+                ->setPort($config['port'] ?? 587)
+                ->setEncryption($config['encryption'] ?? null) // Cannot ?? 'tls' because null is a valid option
+                ->setUsername($config['username'] ?? '')
+                ->setPassword($config['password'] ?? '');
             $mailer = new Swift_Mailer($transport);
             $config = config('logger');
             $config['name'] = isset($config['name']) ? $config['name'] : config('app.name');
@@ -34,5 +36,11 @@ class LoggerServiceProvider extends ServiceProvider
             return new Logger($config, $mailer, app(LaravelCache::class));
         });
         $this->mergeConfigFrom(__DIR__.'/logger_config.php', 'logger');
+    }
+
+    private function getMailConfig(): array
+    {
+        // L5.x use whole mail config file, L7.x use the default config
+        return config('mail.driver') ? config('mail') : config('mail.mailers.' . config('mail.default'));
     }
 }
