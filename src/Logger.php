@@ -95,9 +95,8 @@ class Logger
 
     protected function addLogFileHandler(MonologLogger $logger, string $channel)
     {
-        if (in_array($channel, $this->config['daily'])) {
-            $handler = new RotatingFileHandler($this->filename($channel), $this->config['max_daily']);
-        } else {
+        $handler = new RotatingFileHandler($this->filename($channel), $this->config['max_daily']);
+        if (in_array($channel, $this->config['single'])) {
             $handler = new StreamHandler($this->filename($channel));
         }
         // https://github.com/Seldaek/monolog/blob/master/doc/01-usage.md#customizing-the-log-format

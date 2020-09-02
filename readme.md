@@ -12,7 +12,7 @@ It logs to local files and optionally provides email alerts.
 Publish the configuration file with: `php artisan vendor:publish --provider=NZTim\Logger\LoggerServiceProvider`.
 
 * `'laravel' => true,` captures Laravel log events
-* `'daily' => []` list of log files to be handled as daily logs
+* `'single' => []` list of log files to be handled as single logs (daily is default)
 * `'max_daily' => 7` maximum number of daily log files to keep
 * `'email.send' => false` turns sending of error emails on/off
 * `'email.from' => 'sender@example.com',` email sender address
@@ -39,5 +39,6 @@ The Laravel mail system must be configured for emails to function.
 
 ### Changelog
 
+* v3.0: Switch to daily by default, config option is now 'single'.
 * v2.0: Remove facade. Requires monolog 2.0+ (Laravel 6.0)
 * v1.0: Complete rewrite using monolog handlers, only basic functionality retained. RequestInfo method removed. Do not upgrade without reviewing and updating all use of this package.

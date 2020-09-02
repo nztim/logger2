@@ -5,8 +5,8 @@ return [
     // Capture Laravel log entries
     'laravel'   => true,
 
-    // Log file names that are to be handled as daily logs
-    'daily'     => [],
+    // Log file names that are to be handled as single logs (daily is default)
+    'single'     => [],
 
     // Maximum number of daily log files to keep
     'max_daily' => 7,
