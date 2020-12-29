@@ -3,7 +3,7 @@
     "description": "Logging package for Laravel",
     "license": "MIT",
     "require": {
-        "php": "^7.2",
+        "php": "^7.2|^8.0",
         "monolog/monolog": "^2.0",
         "swiftmailer/swiftmailer": "~6.0"
     },
